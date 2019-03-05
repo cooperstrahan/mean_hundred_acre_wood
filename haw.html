@@ -1,0 +1,140 @@
+<script>
+    var heffalumps = {
+        name:"Heffalumps",
+        greet: function(){
+            console.log("Very good honey this, I don't know when I've tasted better', Pooh could bear it no longer.");
+        }
+}
+    var eeyore = {
+        name:"Eeyore",
+        greet: function(){
+            console.log("A little consideration a little thought for others makes all the difference");
+        }
+    }
+    var kanga = {
+        name:"Kanga",
+        greet: function(){
+            console.log("Some people care too much, I think it's called love.");
+        }
+    }
+    var owl = {
+        name:"Owl",
+        greet: function(){
+            console.log("Artistic talent runs through  my family. In fact, it practically stampedes.");
+        }
+    }
+    var chris = {
+        name:"Christopher Robin",
+        greet: function(){
+            console.log("Silly ol' bear!");
+        }
+    }
+    var rabbit = {
+        name:"Rabbit",
+        greet: function(){
+            console.log("This is rabbit's garden and rabbit does his harvesting by the book!");
+        }
+    }
+    var gopher = {
+        name:"Gopher",
+        greet: function(){
+            console.log("Say, what's wrong Sonny?");
+        }
+    }
+    var piglet = {
+        name:"Piglet",
+        greet: function(){
+            console.log("Oh, d-d-d-dear! I musn’t f-f-f-fear!");
+        }
+    }
+    var pooh = {
+        name:"Winnie the Pooh",
+        greet: function(){
+            console.log("Oh bother!");
+        }
+    }
+    var bees = {
+        name:"Bees",
+        greet: function(){
+            console.log("buzz buzz buzz");
+        }
+    }
+    var tigger = {
+        name:"Tigger",
+        greet: function(){
+            console.log("Life is not about how fast you run or how high you climb but how well you bounce!");
+        }
+    }
+
+    heffalumps.west = eeyore;
+    eeyore.east = heffalumps;
+    eeyore.south = kanga;
+    kanga.north = eeyore;
+    kanga.south = chris;
+    chris.north = kanga;
+    chris.west = owl;
+    chris.east = rabbit;
+    chris.south = pooh;
+    owl.east = chris;
+    owl.south = piglet;
+    piglet.north = owl;
+    piglet.east = pooh;
+    pooh.north = chris;
+    pooh.west = piglet;
+    pooh.south = tigger;
+    pooh.east = bees;
+    tigger.north = pooh;
+    bees.north = rabbit;
+    bees.west = pooh;
+    rabbit.west = chris;
+    rabbit.east = gopher;
+    rabbit.south = bees;
+    gopher.west = rabbit;
+
+    var player = {
+        location: tigger,
+        honey: false,
+    } 
+
+    function move(dir){
+        if (dir == "north" && player['location'].north){
+            player['location'] = player['location'].north
+        } else if (dir == "west" && player['location'].west){
+            player['location'] = player['location'].west
+        } else if (dir == "south" && player['location'].south){
+            player['location'] = player['location'].south
+        } else if (dir == "east" && player['location'].east){
+            player['location'] = player['location'].east
+        } else {
+            return "invalid move";
+        }
+        console.log( "You are at "+ player['location']['name'] + "'s house!");
+        player['location'].greet();
+    }
+
+    function pickUp(){
+        if (player['location'] == bees){
+            player['honey'] = true;
+            console.log("Picked up the honey!")
+        } else {
+            console.log("You cannot pick up honey here!")
+        }    
+    }
+    var homes = [heffalumps, eeyore, kanga, owl, chris, rabbit, gopher, piglet, pooh, tigger]
+    function mission(){
+        var dest = Math.floor(Math.random() * 10);
+        return homes[dest];
+    } 
+    dropLoc = mission();
+    console.log(dropLoc['name'] + " is looking for honey! Can you help?")
+    function drop(){
+        if (player['location'] == dropLoc && player['honey']==true){
+            player['honey'] = false;
+            console.log("Congratulations! you delivered the honey to " + dropLoc['name']);
+        } else if (player['honey']==false) {
+            console.log("You don't have any honey to drop off!")
+        } else {
+            console.log("Whoops! This isn't the place that needs honey!");
+        }
+    }
+</script>
